@@ -370,6 +370,9 @@ class Token(object):
 
     def __repr__(self):
         return "<%s \"%s\">" % (self.__class__.__name__, self._text)
+    
+    def get_text(self):
+        return self._text
 
 
 class Note(Token):
@@ -559,7 +562,6 @@ class Tune(object):
             h[info_keys[key].name] = data
         self.header = h
         self.reference = h['reference number']
-        self.title = h['tune title']
         self.key = h['key']
 
     def parse_tune(self, tune):
@@ -584,7 +586,6 @@ class Tune(object):
 
         tokens = []
         for i,line in enumerate(tune):
-            print(line)
             line = line.rstrip()
 
             if len(line) > 2 and line[1] == ':' and (line[0] == '+' or line[0] in tune_body_fields):
